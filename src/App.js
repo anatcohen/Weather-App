@@ -13,8 +13,8 @@ function App(props) {
     <div className="body">
       <NavBar />
       <div className="content-container">
-        <Route exact path="/anat-cohen-29-11-2019/" render={(routeProps) => <Home {...routeProps} data={props} />} />
-        <Route exact path="/Favourites" render={(routeProps) => <Favourites {...routeProps} data={props} />} />
+        <Route exact path="/anat-cohen-29-11-2019/" render={(routeProps) => <Home {...routeProps} {...props} />} />
+        <Route exact path="/Favourites" render={(routeProps) => <Favourites {...routeProps} {...props} />} />
       </div>
     </div>
   );
@@ -31,13 +31,12 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     addErrorMessage: message => { dispatch(actions.addErrorMessage(message)) },
-    initiliseState: () => { dispatch(actions.initiliseCurrentState()) },
     onAddFavClick: () => { dispatch(actions.addFavourite(store.getState().currentCity)) },
     onRemoveAllClick: () => { dispatch(actions.removeAllFavourite()) },
     onRemoveClick: id => { dispatch(actions.removeFavourite(id)) },
-    onTextFieldChange: list => { dispatch(actions.addCurrentList(list)) },
     fetchForecast: (locationKey, city, country, isMetric) => { dispatch(actions.fetchForecast(locationKey, city, country, isMetric)) },
-    fecthAutoComplete: list => { dispatch(actions.fecthAutoComplete(list)) }
+    fecthAutoComplete: list => { dispatch(actions.fecthAutoComplete(list)) },
+    fetchGeoLocation: (lat, lon) => { dispatch(actions.fetchGeoLocation(lat, lon)) }
   }
 }
 

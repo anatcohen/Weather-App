@@ -56,6 +56,15 @@ export function fetchForecast(locationKey, city, country, isMetric) {
     }
 }
 
+export function fetchGeoLocation(lat, lon) {
+    return dispatch => {
+        const API_URL = "https://dataservice.accuweather.com/locations/v1/cities/geoposition/search" + API_KEY + "&q=" + lat + "%2C%20" + lon;
+        axios.get(API_URL)
+            .then(response => dispatch(fetchForecast(response.data.Key, response.data.EnglishName, ", " + response.data.Country.EnglishName, true)))
+            .catch(error => dispatch(addErrorMessage("Can't find your current location")));
+    }
+}
+
 export function fecthAutoComplete(strSearch) {
     return dispatch => {
         if (strSearch.length !== 0) {
