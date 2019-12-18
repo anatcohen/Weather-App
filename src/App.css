@@ -1,22 +1,199 @@
-.App {
-  text-align: center;
+.body{  
+  font: 16px Verdana;
+  background: url("https://images.unsplash.com/photo-1528872042734-8f50f9d3c59b?ixlib=rb-1.2.1&w=1000&q=80") no-repeat center fixed;
+  background-size: cover;
+  height: 100%;
+  position: fixed;
+  overflow-y: hidden;
+  width: 100%;
 }
 
-.App-logo {
-  height: 40vmin;
+button{cursor: pointer}
+
+.navBtns , .removeFavourite{
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.individualNavBtn{margin: 10px}
+
+.content-container{
+  border-radius: 5px;
+  background-color: white;
+  opacity: 0.8;
+  padding: 1%;
+  margin: 15px;
+  margin-bottom: 50px;
+}
+
+.forecast-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+}
+
+form{
+  display: flex;
+  padding: 1%;
+  align-items: center;
+}
+
+.text-field{
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  margin: 2%;
+}
+
+.form-btns { 
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #09d3ac;
+.form-btns button{
+  margin: 5px;
+}
+
+input{
+  width: 100%;
+  border: none;
+  border-bottom: solid 1px;
+  background: url('https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/search-128.png') no-repeat 10px 10px;
+  background-size:  25px 25px;
+  padding: 10px;
+  padding-left: 70px;;
+}
+
+input:focus{
+  border-bottom-color:  #5E9ED6;
+  outline:none;
+}
+
+.auto-list{ 
+  position: absolute;
+  width:77%;
+  margin-top: 50px;
+  margin-left: 15px;
+  padding-top: 15px;
+  border: solid 1px;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  z-index: 1;
+}
+
+.form-btns button{ background-repeat: no-repeat}
+
+li{
+  list-style: none;
+  cursor: pointer;
+  padding: 10px;
+  width: 95%;
+}
+li:hover{ background-color: #5E9ED6}
+
+.weather-card{
+  display: flex;
+  flex-flow: column;
+  width: 250px;
+  max-height: 150px;
+  min-height: 150px;
+  margin: 2%;
+}
+
+.current-conditions{ margin-bottom: 5%}
+
+h3{ margin-left: 50px}
+
+.favBeforeClick{
+  background-image: url("https://freeiconshop.com/wp-content/uploads/edd/heart-outline.png");
+  background-size: 40px 40px;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border: none;
+}
+.favAfterClick{
+  width: 40px;
+  height: 40px;
+  background-image: url("https://freeiconshop.com/wp-content/uploads/edd/heart-compact-outline-filled.png");
+  background-size: 40px 40px;
+  background-color: transparent;
+  border: none;
+}
+
+/* Toggle switch */
+label{color: white;}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: black;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.slider.round {
+  display: flex;
+  border-radius: 34px;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.slider.round span{
+  text-align: right;
+  margin-left: 10px;
+}
+
+@media (max-width: 800px){
+  .forecast-container{
+    overflow:auto;
+    padding: 10px;
+    padding-top: 50px;
+  }
+
+  .weather-card{
+    width: 80%;
+    margin: 10px;
+  }
 }

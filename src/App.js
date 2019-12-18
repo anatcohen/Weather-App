@@ -1,26 +1,45 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import NavBar from './NavBar';
+import Home from './Home Page/Home';
+import Favourites from './Favourites Page/Favourites';
+import { connect } from 'react-redux';
+import * as actions from './actions/actions';
+import store from './store/store';
+import { Route } from 'react-router-dom';
 
-function App() {
+function App(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="body">
+      <NavBar />
+      <div className="content-container">
+        <Route exact path="/anat-cohen-29-11-2019/" render={(routeProps) => <Home {...routeProps} data={props} />} />
+        <Route exact path="/Favourites" render={(routeProps) => <Favourites {...routeProps} data={props} />} />
+      </div>
     </div>
   );
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    currentCity: state.currentCity,
+    favourites: state.favourites,
+    autocomplete: state.autocomplete
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addCurrentLocation: (forecast, city, country) => { dispatch(actions.changeCurrentLocation(forecast, city, country)) },
+    addErrorMessage: message => { dispatch(actions.addErrorMessage(message)) },
+    initiliseState: () => { dispatch(actions.initiliseCurrentState()) },
+    onAddFavClick: () => { dispatch(actions.addFavourite(store.getState().currentCity)) },
+    onRemoveAllClick: () => { dispatch(actions.removeAllFavourite()) },
+    onRemoveClick: id => { dispatch(actions.removeFavourite(id)) },
+    onTextFieldChange: list => { dispatch(actions.addCurrentList(list)) },
+    deleteCurrentList: () => { dispatch(actions.deleteCurrentList()) },
+    fetchForecast: (locationKey, city, country, isMetric) => { dispatch(actions.api(locationKey, city, country, isMetric)) }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
