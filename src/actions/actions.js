@@ -44,7 +44,7 @@ export function removeAllFavourite() {
     return { type: REMOVE_ALL_FAVOURITES }
 }
 
-export function api(locationKey, city, country, isMetric) {
+export function fetchForecast(locationKey, city, country, isMetric) {
     return dispatch => {
         const API_URL = "https://dataservice.accuweather.com/forecasts/v1/daily/5day/" + locationKey + API_KEY + "&metric=" + isMetric
         axios.get(API_URL)
@@ -52,8 +52,18 @@ export function api(locationKey, city, country, isMetric) {
                 dispatch(deleteCurrentList());
                 dispatch(changeCurrentLocation(response.data.DailyForecasts, city, country));
             })
-            .catch(error => {
-                dispatch(addErrorMessage("Uh oh something went wrong"));
-            })
+            .catch(error => dispatch(addErrorMessage("Uh oh something went wrong")));
+    }
+}
+
+export function fecthAutoComplete(strSearch) {
+    return dispatch => {
+        if (strSearch.length !== 0) {
+            const API_URL = "https://dataservice.accuweather.com/locations/v1/cities/autocomplete" + API_KEY + " &q=" + strSearch;
+            axios.get(API_URL)
+                .then(response => dispatch(addCurrentList(response)))
+                .catch(error => dispatch(addErrorMessage("Uh oh something went wrong")));
+        }
+        else dispatch(deleteCurrentList());
     }
 }

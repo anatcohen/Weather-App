@@ -30,15 +30,14 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addCurrentLocation: (forecast, city, country) => { dispatch(actions.changeCurrentLocation(forecast, city, country)) },
     addErrorMessage: message => { dispatch(actions.addErrorMessage(message)) },
     initiliseState: () => { dispatch(actions.initiliseCurrentState()) },
     onAddFavClick: () => { dispatch(actions.addFavourite(store.getState().currentCity)) },
     onRemoveAllClick: () => { dispatch(actions.removeAllFavourite()) },
     onRemoveClick: id => { dispatch(actions.removeFavourite(id)) },
     onTextFieldChange: list => { dispatch(actions.addCurrentList(list)) },
-    deleteCurrentList: () => { dispatch(actions.deleteCurrentList()) },
-    fetchForecast: (locationKey, city, country, isMetric) => { dispatch(actions.api(locationKey, city, country, isMetric)) }
+    fetchForecast: (locationKey, city, country, isMetric) => { dispatch(actions.fetchForecast(locationKey, city, country, isMetric)) },
+    fecthAutoComplete: list => { dispatch(actions.fecthAutoComplete(list)) }
   }
 }
 

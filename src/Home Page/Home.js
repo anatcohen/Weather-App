@@ -15,6 +15,7 @@ export default function Home(props) {
         }
     },
         onTextFieldChange = e => {
+            /*
             // Fetches list of autocomplete cities from API as long as the textfield is not empty
             if (e.currentTarget.value.length !== 0) {
                 autoCompleteAPICall(e.currentTarget.value, API_KEY).then(
@@ -26,11 +27,13 @@ export default function Home(props) {
             }
             // Empty textfield
             else props.data.deleteCurrentList();
+            */
+            props.data.fecthAutoComplete(e.currentTarget.value);
         },
         // When a city is clicked from he autocomplete list
         submitCity = (id) => {
             document.getElementById('city').value = "";
-            props.data.fetchForecast(props.data.autocomplete.list[id].Key, props.data.autocomplete.list[id].LocalizedName, props.data.autocomplete.list[id].Country.LocalizedName, !document.getElementById("metric").checked);
+            props.data.fetchForecast(props.data.autocomplete.list.data[id].Key, props.data.autocomplete.list.data[id].LocalizedName, props.data.autocomplete.list.data[id].Country.LocalizedName, !document.getElementById("metric").checked);
             //getForecast(forecastAPICall(props.data.autocomplete.list[id].Key, !document.getElementById("metric").checked), props.data.autocomplete.list[id].LocalizedName, ", " + props.data.autocomplete.list[id].Country.LocalizedName);
         },
         // Fetches city's forecast and dispatches it to the reducer
@@ -50,10 +53,6 @@ export default function Home(props) {
         // API calls for location and forecast
         autoCompleteAPICall = strSearch => {
             const API_URL = "https://dataservice.accuweather.com/locations/v1/cities/autocomplete" + API_KEY + " &q=" + strSearch;
-            return fetch(API_URL);
-        },
-        forecastAPICall = (locationKey, isMetric) => {
-            const API_URL = "https://dataservice.accuweather.com/forecasts/v1/daily/5day/" + locationKey + API_KEY + "&metric=" + isMetric;
             return fetch(API_URL);
         },
         geoAPICall = (lat, lon) => {
